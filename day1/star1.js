@@ -1,4 +1,4 @@
-import { data } from './star1data.js';
+import { data } from './data.js';
 
 let increaseCount = 0;
 data.forEach((x, i) => {
