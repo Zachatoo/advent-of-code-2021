@@ -2,7 +2,7 @@ import { drawData, boardData } from './data.js';
 
 const MARK = 'x';
 
-function convertBoardDataToArrays(str) {
+function convertBoardDataToArrays(str: string): (number | string)[][][] {
   const boards = str.split(/\n\n/); // each board is separated by an empty newline
   return boards.map((board) => {
     const rows = board.split(/\n/).filter((x) => x.trim()); // each row in a board is separated by a newline
@@ -13,11 +13,11 @@ function convertBoardDataToArrays(str) {
   });
 }
 
-function isMarked(entry) {
+function isMarked(entry: number | string) {
   return entry === MARK;
 }
 
-function markDrawnNumberOnBoard(board, number) {
+function markDrawnNumberOnBoard(board: (number | string)[][], number: number) {
   return board.map((row) => {
     return row.map((entry) => {
       if (entry === number) {
@@ -28,11 +28,11 @@ function markDrawnNumberOnBoard(board, number) {
   });
 }
 
-function checkForWin(board) {
+function checkForWin(board: (number | string)[][]) {
   return checkForRowWin(board) || checkForColWin(board);
 }
 
-function checkForRowWin(board) {
+function checkForRowWin(board: (number | string)[][]) {
   for (let row of board) {
     if (row.every((entry) => isMarked(entry))) {
       return true;
@@ -41,7 +41,7 @@ function checkForRowWin(board) {
   return false;
 }
 
-function checkForColWin(board) {
+function checkForColWin(board: (number | string)[][]) {
   for (let index in board) {
     let column = [];
     for (let row of board) {
@@ -54,18 +54,23 @@ function checkForColWin(board) {
   return false;
 }
 
-function getScore(board, winningDrawnNumber) {
-  let score = 0;
-  const reducer = (prev, curr) => (isNaN(curr) ? prev : prev + curr);
+function getScore(board: (number | string)[][], winningDrawnNumber: number) {
+  let score: number = 0;
+  const reducer = (prev: number, curr: number | string): number => {
+    if (typeof curr === 'number') {
+      return prev + curr;
+    }
+    return prev;
+  };
   board.forEach((row) => {
-    score = row.reduce(reducer, score);
+    score = row.reduce<number>(reducer, score);
   });
   score *= winningDrawnNumber;
   return score;
 }
 
 let boardsArr = convertBoardDataToArrays(boardData);
-let losingBoard;
+let losingBoard: (number | string)[][];
 let currentDrawIndex = -1;
 while (
   boardsArr.length > 0 &&
