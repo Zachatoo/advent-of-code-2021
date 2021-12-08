@@ -1,6 +1,6 @@
 import { data } from './data.js';
 
-function getWindowedMeasurements (values) {
+function getWindowedMeasurements(values: number[]) {
   let results = [];
   values.forEach((x, i) => {
     if (i < values.length - 2) {
@@ -14,8 +14,8 @@ function getWindowedMeasurements (values) {
 let increaseCount = 0;
 const windowedMeasurements = getWindowedMeasurements(data);
 windowedMeasurements.forEach((x, i) => {
-  if (i !== 0) {
-    increaseCount += x > windowedMeasurements[i - 1];
+  if (i !== 0 && x > windowedMeasurements[i - 1]) {
+    increaseCount += 1;
   }
 });
 console.log(increaseCount);
