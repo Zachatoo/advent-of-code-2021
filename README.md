@@ -6,3 +6,5 @@ To setup, run `yarn install` to install typescript if you don't have it globally
 
 To test a solution, run `node build/day{day}/star{star}.js`, where {day} is the day in the advent calendar, and {star} is the star for that day.  
 For example, to run the code for day 2 star 1, run `node build/day2/star1.js`.
+
+<!--- advent_readme_stars table --->
