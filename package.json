@@ -5,9 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "rebuild": "rm -rf build/* && tsc",
+    "clean": "rm -rf build/*",
+    "rebuild": "yarn clean && yarn build",
     "build": "tsc",
-    "dev": "tsc && node",
+    "watch": "yarn build -- -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
